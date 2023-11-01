@@ -1,6 +1,7 @@
 // server.js
 
 const express = require("express");
+const cors = require('cors');
 const app = express();
 const authRoutes = require("./routes/auth");
 require("dotenv").config();
@@ -21,6 +22,7 @@ db.once("open", () => {
 });
 
 // Define middleware
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
