@@ -9,6 +9,8 @@ const mongodbURI = process.env.MONGODB_URI;
 const openaiApiKey = process.env.OPENAI_API_KEY;
 const mongoose = require("mongoose");
 
+
+
 mongoose.connect(mongodbURI, {});
 
 const db = mongoose.connection;

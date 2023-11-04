@@ -10,12 +10,18 @@ const SignUp = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({fullName})
+      body: JSON.stringify({ fullName, userName, password }),
     });
-    console.log(response.json());
+    const token = await response.json()
+    await window.cookieStore.set('token', token.token)
+    
+    const curDate = Date.now();
+    const oneHrTs = 1*60*60*1000
+    const expirey = curDate  + oneHrTs
+    await window.cookieStore.set('expires',expirey)
   }
   return (
-    <form>
+    <div>
       <input
         placeholder="FullName"
         type="text"
@@ -38,7 +44,7 @@ const SignUp = () => {
         }}
       />
       <button onClick={postData}>Sign Up</button>
-    </form>
+    </div>
   );
 };
 export default SignUp;
