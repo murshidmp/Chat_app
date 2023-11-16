@@ -23,4 +23,16 @@ router.post("/register", async (req, res) => {
  
 });
 
+router.post("/login", async (req, res) => {
+  const password = req.body.password;
+  console.log(await global.db.collection("users").findOne({username:"dev@gamil.com"}))
+  
+
+  const token = jwt.sign({userId:user._id.toString()},"mysecret",{ expiresIn: "1h" })
+  
+  res.json({ success: "true" , token});
+
+ 
+});
+
 module.exports = router;

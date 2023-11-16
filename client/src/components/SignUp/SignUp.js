@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-const SignUp = () => {
+const SignUp = (props) => {
+  console.log (props)
   const [fullName, setFullname] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -13,12 +14,9 @@ const SignUp = () => {
       body: JSON.stringify({ fullName, userName, password }),
     });
     const token = await response.json()
-    await window.cookieStore.set('token', token.token)
-    
-    const curDate = Date.now();
-    const oneHrTs = 1*60*60*1000
-    const expirey = curDate  + oneHrTs
-    await window.cookieStore.set('expires',expirey)
+    console.log(token.token)
+    props.cHandler.setCookie("signUpToken",token.token,(1/24))
+    props.setToken(true)
   }
   return (
     <div>
@@ -44,6 +42,11 @@ const SignUp = () => {
         }}
       />
       <button onClick={postData}>Sign Up</button>
+      <button onClick={()=>{
+        props.setSignIn (true);
+      }}>click here to sign in</button>
+
+
     </div>
   );
 };
